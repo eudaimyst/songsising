@@ -1,0 +1,64 @@
+body {
+  font-family: Arial, sans-serif;
+  font-size: 2vh;
+  margin: 0;
+  padding: 1vmin;
+  border-radius: 10px;
+}
+
+table {
+  width: 100%;
+  border-collapse: separate;
+  /* Change collapse to separate */
+  border-spacing: 0 10px;
+  /* Adds spacing between rows */
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 10px;
+}
+
+tr {
+  height: 3vh;
+  width: 14vw;
+  border-radius: 10px;
+}
+
+td,
+th {
+  width: 14vw;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 10px;
+}
+
+input,
+select {
+  position: relative;
+  border-radius: 10px;
+  width: 100%;
+  font-size: 2vh;
+  height: 3vh;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+form {
+  /** make flexbox */
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  padding: 1vmin;
+  border-radius: 10px;
+}
+
+.hidden {
+  display: none;
+}
+
+#appHeader {
+  display: flex;
+  gap: 1vw;
+  padding: 1vmin;
+  border-radius: 10px;
+}

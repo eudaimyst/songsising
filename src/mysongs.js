@@ -28,6 +28,8 @@ var cell5 = document.createElement('th');
 row.appendChild(cell5);
 var cell6 = document.createElement('th');
 row.appendChild(cell6);
+var cell7 = document.createElement('th');
+row.appendChild(cell7);
 //set the cell text
 cell1.textContent = 'Song Name';
 cell2.textContent = 'Artist';
@@ -35,6 +37,7 @@ cell3.textContent = 'Genre';
 cell4.textContent = 'Provider';
 cell5.textContent = 'Rating';
 cell6.textContent = 'Link';
+cell7.textContent = 'Delete';
 //add a body to the table
 var body = document.createElement('tbody');
 table.appendChild(body);
@@ -110,6 +113,20 @@ function addCells(songname, artist, genre, provider, rating, link) {
     }
     cell6.appendChild(input6);
     row.appendChild(cell6);
+
+    // Delete cell
+    var cell7 = document.createElement('td');
+    var button = document.createElement('button');
+    button.textContent = 'Delete';
+    cell7.appendChild(button);
+    row.appendChild(cell7);
+    cell7.addEventListener('click', function () {
+        mySongs = mySongs.filter(function (song) {
+            return song.Name !== input.value;
+        });
+        localStorage.setItem('songs', JSON.stringify(mySongs));
+        mySongsRefresh();
+    });
 
     // Append the row to the table body
     if (body) {

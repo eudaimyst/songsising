@@ -9,6 +9,17 @@ var heading = document.createElement('div');
 heading.textContent = 'Songs I Sing';
 header.appendChild(heading);
 
+//load songlist.json file and parse it to get the list of songs
+var songs = [];
+//just load the json and put it in the songs array without using xml http request
+fetch('songlist.json')
+    .then(response => response.json())
+    .then(data => {
+        songs = data;
+    });
+
+
+
 var appMode = 'form'
 //add two buttons at the top for a form mode of entry and a table mode of entry
 var formButton = document.createElement('button');
@@ -28,9 +39,20 @@ tableButton.addEventListener('click', function () {
     setMode('table');
 });
 function setMode(mode) {
+    if (mode === appMode) {
+        return;
+    }
     appMode = mode;
     showHide();
 }
+//add another button at the top called "song list" which when pressed shows a table of all possible songs from songlist.json
+var songListButton = document.createElement('button');
+songListButton.textContent = 'Song List';
+header.appendChild(songListButton);
+songListButton.addEventListener('click', function () {
+    console.log('songlist button pressed');
+    setMode('songlist');
+});
 
 //add a button to clear localStorage data
 var clearButton = document.createElement('button');
@@ -265,6 +287,44 @@ function formMode() {
     });
 }
 
+var songlistDiv = document.createElement('div');
+function songlistMode() {
+    //display a table with the song name, artist, provider from the json
+    document.body.appendChild(songlistDiv);
+    var table = document.createElement('table');
+    songlistDiv.appendChild(table);
+    var header = document.createElement('thead');
+    table.appendChild(header);
+    var row = document.createElement('tr');
+    header.appendChild(row);
+    var cell1 = document.createElement('th');
+    row.appendChild(cell1);
+    var cell2 = document.createElement('th');
+    row.appendChild(cell2);
+    var cell3 = document.createElement('th');
+    row.appendChild(cell3);
+    cell1.textContent = 'Song Name';
+    cell2.textContent = 'Artist';
+    cell3.textContent = 'Provider';
+    var body = document.createElement('tbody');
+    table.appendChild(body);
+    for (var i = 0; i < songs.length; i++) {
+        var row = document.createElement('tr');
+        var cell1 = document.createElement('td');
+        var cell2 = document.createElement('td');
+        var cell3 = document.createElement('td');
+        cell1.textContent = songs[i].song;
+        cell2.textContent = songs[i].artist;
+        cell3.textContent = songs[i].provider;
+        row.appendChild(cell1);
+        row.appendChild(cell2);
+        row.appendChild(cell3);
+        body.appendChild(row);
+    }
+
+}
+
+
 //function to show/hide the form and table depending on mode
 function showHide() {
     console.log('showHide called');
@@ -290,6 +350,21 @@ function showHide() {
         }
         tableMode();
 
+    }
+    else if (appMode === 'songlist') {
+        if (formDiv) {
+            formDiv.remove();
+            while (formDiv.firstChild) {
+                formDiv.removeChild(formDiv.firstChild);
+            }
+        }
+        if (table) {
+            table.remove();
+            while (table.firstChild) {
+                table.removeChild(table.firstChild);
+            }
+        }
+        songlistMode();
     }
 }
 showHide();

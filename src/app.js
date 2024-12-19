@@ -1,8 +1,19 @@
 //import form.js and mysongs.js and songlist.js
 import { formView } from './form.js';
-import { mySongsView, addCells } from './mysongs.js';
+import { mySongsView, mySongsRefresh } from './mysongs.js';
 import { songListView } from './songlist.js';
 
+//called when a button is pressed to change the mode of the app
+function setMode(mode) {
+    if (mode === appMode) {
+        return;
+    }
+    appMode = mode;
+    showHide();
+}
+
+//set the initial mode of the app to form
+var appMode = 'form'
 
 //make a header div to hold the heading and buttons
 var header = document.createElement('div');
@@ -14,10 +25,8 @@ var heading = document.createElement('div');
 heading.textContent = 'Songs I Sing';
 header.appendChild(heading);
 
+//header buttons
 
-
-var appMode = 'form'
-//add two buttons at the top for a form mode of entry and a table mode of entry
 var formButton = document.createElement('button');
 formButton.textContent = 'Manual Entry';
 header.appendChild(formButton);
@@ -26,21 +35,17 @@ formButton.addEventListener('click', function () {
     console.log('form button pressed');
     setMode('form');
 });
-var tableButton = document.createElement('button');
-tableButton.textContent = 'My Songs';
-header.appendChild(tableButton);
+
+var mySongsButton = document.createElement('button');
+mySongsButton.textContent = 'My Songs';
+header.appendChild(mySongsButton);
 //when table button is pressed the table mode is activated
-tableButton.addEventListener('click', function () {
-    console.log('table button pressed');
-    setMode('table');
+mySongsButton.addEventListener('click', function () {
+    console.log('mysongs button pressed');
+    mySongsRefresh();
+    setMode('mysongs');
 });
-function setMode(mode) {
-    if (mode === appMode) {
-        return;
-    }
-    appMode = mode;
-    showHide();
-}
+
 //add another button at the top called "song list" which when pressed shows a table of all possible songs from songlist.json
 var songListButton = document.createElement('button');
 songListButton.textContent = 'Song List';
@@ -122,7 +127,7 @@ function showHide() {
     if (appMode === 'form') {
         formView.classList.remove('hidden');
     }
-    else if (appMode === 'table') {
+    else if (appMode === 'mysongs') {
         mySongsView.classList.remove('hidden');
     }
     else if (appMode === 'songlist') {

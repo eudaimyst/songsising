@@ -41,11 +41,11 @@ saveButton.addEventListener('click', function () {
     var rating = document.getElementById('rating').value;
     var link = document.getElementById('link').value;
     var songObj = {
-        song: song,
-        artist: artist,
+        Name: song,
+        Artist: artist,
         genre: genre,
         year: year,
-        provider: provider,
+        Provider: provider,
         rating: rating,
         link: link
     };
